@@ -1,0 +1,128 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+
+int a[100];
+int n;
+
+//Definition of MAX HEAPIFY 
+
+max_heapify(int k[],int i)
+{
+	int t,l,r,largest;
+	l=(2*i)+1;
+	
+	r=(2*i)+2;
+	
+	if((l <= n) && (k[l] > k[i]))
+	{
+		largest=l;
+	}
+	else
+	{
+		largest=i;
+	}
+	
+	if((r < n) && (k[r] > k[largest]))
+	{
+		largest=r;
+	}
+	if(largest!=i)
+	{
+		t=a[i];
+		k[i]=k[largest];
+		k[largest]=t;
+		max_heapify(k,largest);
+	}
+	
+}
+// Definition Of Build Max Heap 
+
+build_max_heap(int k[])
+{
+	int i,j;
+	for(i=(n/2);i>0;i--)
+	{
+		max_heapify(k,i-1);
+	}		
+}
+
+// Definition Of Heap Sort
+
+heap_sort(int k[])
+{
+	build_max_heap(k);
+	int i=0,j,m,s;
+	j=n;
+	s=n;
+	printf("\n\n\t*\tThe Element You Entered before Sorting and after build max heap: ");
+	printf("\n\n\t");
+	for(i=0;i<j;i++)
+	{
+		printf("\t%d",k[i]);
+	}
+	
+	
+	int p=0;
+	p=n;
+	
+	for(i=p-1;i>1;i--)
+	{
+		j=k[i];
+		k[i]=k[0];
+		k[0]=j;
+		n=n-1;
+	
+		printf("\n\n\t*\tThe Element You Entered before Sorting : ");
+		printf("\n\n\t");
+		for(m=0;m<s;m++)
+		{
+			printf("\t%d",k[m]);
+		}
+		
+		
+		max_heapify(k,0);
+		
+		
+		printf("\n\n\t*\tThe Element You Entered before Sorting and after build max heap1111: ");
+		printf("\n\n\t");
+		for(m=0;m<n;m++)
+		{
+			printf("\t%d",k[m]);
+		}
+		
+		
+	}
+	
+}
+
+
+//Main Block
+ 
+int main()
+{
+	printf("\n\n\t\t\t\t\t\t\t-: HEAP SORT :-\n");
+	int i,j;
+	printf("\n\n\n\t*\tEnter The Size Of The Array : ");
+	scanf("%d",&n);
+	j=n;	
+	printf("\n\n\t*\tEnter the Element in the Array : ");
+	for(i=0;i<n;i++)
+	{
+		scanf("%d",&a[i]);
+	}
+	printf("\n\n\t*\tThe Element You Entered Before Sorting : ");
+	printf("\n\n\t");
+	for(i=0;i<n;i++)
+	{
+		printf("\t%d",a[i]);
+	}
+	
+	heap_sort(a);
+	printf("\n\n\t*\tThe Element You Entered after Sorting : ");
+	printf("\n\n\t");
+	for(i=0;i<j;i++)
+	{
+		printf("\t%d",a[i]);
+	}
+}
